@@ -1,0 +1,28 @@
+.header{
+  height: 80px;
+  background-color: #FFF;
+  border-bottom: 1px solid #E4E3EB;
+  .header-items-container{
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    .header-items{
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: space-between;
+      .sign-in-button{
+        background-color: #5D37F3;
+        cursor: pointer;
+        color: #FFFFFF;
+        padding: 10px 20px;
+        display: inline-flex;
+        border-radius: 8px;
+        font-size: 14px;
+        justify-content: center;
+        align-items: center;
+        font-weight: 400;
+      }
+    }
+  }
+}

@@ -1,0 +1,111 @@
+.landing-section{
+  display: flex;
+  flex-direction: column;
+  .landing-main-container{
+    width: 1200px;
+    margin: 0 auto;
+    .landing-main-items{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-left: 20px;
+      padding-right: 20px;
+      h1{
+        color: #1A1A1F;
+        font-size: 64px;
+        font-weight: 700;
+      }
+    }
+  }
+  .landing-blogs-container{
+    width: 1200px;
+    margin: 30px auto 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    row-gap: 70px;
+    > .categories{
+      display: flex;
+      column-gap: 24px;
+      width: 700px;
+      margin: 0 auto;
+      overflow-x: scroll;
+      padding: 20px;
+      .category-button{
+        padding: 8px 16px;
+        border-radius: 30px;
+        font-size: 12px;
+        width: max-content;
+        white-space: nowrap;
+        opacity: 0.7;
+        font-weight: 500;
+      }
+    }
+    .blogs{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-column-gap: 30px;
+      padding-bottom: 20px;
+      .blog{
+        display: flex;
+        flex-direction: column;
+        img{
+          width: 100%;
+          height: 328px;
+          object-fit: cover;
+        }
+        .author{
+          font-size: 16px;
+          font-weight: bold;
+          color: #1A1A1F;
+          padding-top: 24px;
+        }
+        .date{
+          font-size: 12px;
+          font-weight: 400;
+          color: #85858D;
+          padding-top: 15px;
+        }
+        .title{
+          color: #1A1A1F;
+          font-size: 20px;
+          font-weight: bold;
+          padding-top: 16px;
+        }
+        .categories{
+          display: flex;
+          flex-wrap: wrap;
+          column-gap: 16px;
+          margin-top: 16px;
+          .category-button{
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 12px;
+            width: max-content;
+            white-space: nowrap;
+            opacity: 0.7;
+            font-weight: 500;
+          }
+        }
+        .content{
+          color: #404049;
+          font-size: 16px;
+          font-weight: 400;
+          padding-top: 16px;
+        }
+        a{
+          color: #5D37F3;
+          font-size: 14px;
+          font-weight: 500;
+          display: flex;
+          margin-top: 16px;
+          img{
+            width: 20px;
+            height: 20px;
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+  }
+}
