@@ -1,16 +1,19 @@
-<header class="header">
-  <div class="header-items-container">
-    <div class="header-items" [class.only-logo]="showOnlyLogo">
-      <img routerLink="/" src="/assets/images/logo.svg" alt="">
-      <button class="primary-button" (click)="openDialog(auth)" *ngIf="!isLoggedIn">
-        შესვლა
-      </button>
-      <button routerLink="/blogs/blog-add" class="primary-button" *ngIf="isLoggedIn">
-        დაამატე ბლოგი
-      </button>
+<div class="wrapper">
+  <header class="header">
+    <div class="header-items-container">
+      <div class="header-items" [class.only-logo]="showOnlyLogo">
+        <img routerLink="/" src="/assets/images/logo.svg" alt="">
+        <button class="primary-button" (click)="openDialog(auth)" *ngIf="!isLoggedIn">
+          შესვლა
+        </button>
+        <button routerLink="/blogs/blog-add" class="primary-button" *ngIf="isLoggedIn">
+          დაამატე ბლოგი
+        </button>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
+</div>
+
 <ng-template #auth>
   <div class="auth">
     <div class="header-close-button">

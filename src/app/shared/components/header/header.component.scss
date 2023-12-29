@@ -1,6 +1,9 @@
 .header{
   height: 80px;
   background-color: #FFF;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
   border-bottom: 1px solid #E4E3EB;
   .header-items-container{
     max-width: 1200px;
@@ -22,6 +25,10 @@
       }
     }
   }
+}
+
+.wrapper{
+  height: 80px;
 }
 
 .auth{
