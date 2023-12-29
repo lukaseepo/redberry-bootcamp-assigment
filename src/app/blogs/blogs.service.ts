@@ -17,21 +17,21 @@ export class BlogsService {
 
   public addNewBlog(blog: FormData) {
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer 10dd4997172cd37aa0ccc0e707ee6771b110afcc1c2edef494a284cee3117b5e',
+      'Authorization': 'Bearer 9b528cdeebd96aa5955677a58fdd64acc4f558be1a59cb04224efe31793978a2',
     });
     return this.http.post(`${this.apiKey}blogs`, blog, {headers: headers});
   }
 
   public getBlogById(id:number) {
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer 10dd4997172cd37aa0ccc0e707ee6771b110afcc1c2edef494a284cee3117b5e',
+      'Authorization': 'Bearer 9b528cdeebd96aa5955677a58fdd64acc4f558be1a59cb04224efe31793978a2',
     });
     return this.http.get<Blog>(`${this.apiKey}blogs/${id}`,{headers: headers});
   }
 
   public getBlogs() {
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer 10dd4997172cd37aa0ccc0e707ee6771b110afcc1c2edef494a284cee3117b5e',
+      'Authorization': 'Bearer 9b528cdeebd96aa5955677a58fdd64acc4f558be1a59cb04224efe31793978a2',
     });
     return this.http.get<Blogs>(`${this.apiKey}blogs`, {headers: headers});
   }
