@@ -37,7 +37,6 @@
         font-size: 12px;
         width: max-content;
         white-space: nowrap;
-        opacity: 0.7;
         font-weight: 500;
       }
     }
@@ -77,13 +76,13 @@
           flex-wrap: wrap;
           column-gap: 16px;
           margin-top: 16px;
+          row-gap: 10px;
           .category-button{
             padding: 8px 16px;
             border-radius: 30px;
             font-size: 12px;
             width: max-content;
             white-space: nowrap;
-            opacity: 0.7;
             font-weight: 500;
           }
         }

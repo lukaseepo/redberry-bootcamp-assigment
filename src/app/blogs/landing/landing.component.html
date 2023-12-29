@@ -1,3 +1,4 @@
+<app-header></app-header>
 <section class="landing-section">
    <div class="landing-main-container">
      <div class="landing-main-items">
@@ -9,26 +10,25 @@
    </div>
   <div class="landing-blogs-container">
     <div class="categories">
-      <button class="category-button" *ngFor="let category of categories" [style.background-color]="category.background_color">
-        <h4 [style.color]="category.text_color">{{ category.title }}</h4>
+      <button class="category-button" *ngFor="let category of categories" [style.background-color]="category.background_color + '4D'">
+        <h4 [style.color]="category.background_color">{{ category.title }}</h4>
       </button>
     </div>
     <div class="blogs">
-      <div class="blog">
-        <img src="data:image/png;base64,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" alt="">
-        <p class="author">ლილე კვარაცხელია</p>
-        <p class="date">02.11.2023</p>
+      <div class="blog" *ngFor="let blog of blogs">
+        <img src="{{blog.image}}" alt="">
+        <p class="author">{{blog.author}}</p>
+        <p class="date">{{blog.publish_date}}</p>
         <h4 class="title">
-          EOMM-ის მრჩეველთა საბჭოს ნინო ეგაძე შეუერთდა
+          {{ blog.title }}
         </h4>
         <div class="categories">
-          <button class="category-button">აეეე</button>
-          <button class="category-button">აეეე</button>
-          <button class="category-button">აეეე</button>
-          <button class="category-button">აეეე</button>
+          <button class="category-button" *ngFor="let category of blog.categories" [style.background-color]="category.background_color + '4D'">
+            <h4 [style.color]="category.background_color">{{category.title}}</h4>
+          </button>
         </div>
         <p class="content">
-          6 თვის შემდეგ ყველის ბრმა დეგუსტაციის დროც დადგა. მაქსიმალური სიზუსტისთვის, ეს პროცესი...
+          {{blog.description.length >= 50 ? blog.description.slice(0, 50) + '...' : blog.description}}
         </p>
         <a href="">სრულად ნახვა <img src="/assets/icons/arrow.svg" alt=""></a>
       </div>

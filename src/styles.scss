@@ -1,18 +1,101 @@
 @font-face {
-  font-family: 'Roboto';
-  src: url('/assets/fonts/roboto-regular.woff') format('truetype');
+  font-family: 'FiraGO';
+  src: url("/assets/fonts/FiraGO-Regular.otf") format('truetype');
   font-weight: normal;
   font-style: normal;
 }
+
+@import "@ng-select/ng-select/themes/default.theme.css";
+
 
 
 *{
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
+  font-family: FiraGO, sans-serif;
   border-style: none;
   outline-style: none;
   text-decoration: none;
 }
 
+.primary-button{
+  background-color: #5D37F3;
+  cursor: pointer;
+  color: #FFFFFF;
+  padding: 10px 20px;
+  display: inline-flex;
+  border-radius: 8px;
+  font-size: 14px;
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+}
+
+.primary-input{
+  border-radius: 12px;
+  border: 1px solid #E4E3EB;
+  height: 44px;
+  background: #FCFCFD;
+  font-size: 14px;
+  font-weight: 400;
+  padding-left: 16px;
+  &:focus{
+    border: 1.5px solid #5D37F3;
+    background: #F7F7FF;
+  }
+}
+
+input.ng-invalid.ng-dirty{
+  border: 1px solid #EA1919 !important;
+  background: #FAF2F3;
+}
+
+input.ng-invalid.ng-touched{
+  border: 1px solid #EA1919 !important;
+  background: #FAF2F3;
+}
+
+textarea.ng-invalid.ng-dirty{
+  border: 1px solid #EA1919 !important;
+  background: #FAF2F3;
+}
+
+.invalid-hint{
+  color: #EA1919 !important;
+}
+
+.valid-hint{
+  color: #14D81C !important;
+}
+
+textarea.ng-invalid.ng-touched{
+  border: 1px solid #EA1919 !important;
+  background: #FAF2F3;
+}
+
+ng-select.ng-touched.ng-dirty.ng-invalid{
+  .ng-select-container{
+    border: 1px solid #EA1919 !important;
+    background: #FAF2F3;
+  }
+}
+
+ng-select.ng-touched.ng-invalid{
+  .ng-select-container{
+    border: 1px solid #EA1919 !important;
+    background: #FAF2F3 !important;
+  }
+}
+
+ng-select.ng-dirty.ng-invalid{
+  .ng-select-container{
+    border: 1px solid #EA1919 !important;
+    background: #FAF2F3 !important;
+  }
+}
+
+.mat-mdc-dialog-container{
+  border-radius: 12px;
+  overflow: hidden;
+}

@@ -1,0 +1,102 @@
+<app-header [showOnlyLogo]="true"></app-header>
+<section class="blog-add-section">
+  <div class="blog-add-items-container">
+    <div class="blod-add-items">
+      <h3>ბლოგის დამატება</h3>
+      <form class="blog-add-form" [formGroup]="blogForm">
+        <div class="image-upload">
+          <label class="upload-title">ატვირთეთ ფოტო</label>
+          <ng-container *ngIf="!imageUploaded">
+            <input (change)="handleFileInput($event)" class="file-upload-input" type="file" id="fileInput" />
+            <div class="upload-file">
+              <img src="/assets/icons/upload.svg" alt="">
+              <h4>ჩააგდეთ ფაილი აქ ან <span>აირჩიეთ ფაილი</span></h4>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="imageUploaded">
+            <div class="image-uploaded">
+              <div class="image-name">
+                <img src="/assets/icons/gallery.svg" alt="">
+                <h4>{{imageName}}</h4>
+              </div>
+              <img src="/assets/icons/close.svg" alt="" (click)="imageUploaded = false; imageToUpload = ''">
+            </div>
+          </ng-container>
+        </div>
+        <div class="author-info">
+           <div class="multiple-input">
+              <div class="input-wrapper">
+                <label>ავტორი *</label>
+                <input formControlName="author" placeholder="შეიყვნეთ ავტორი" type="text" class="primary-input">
+                <ul class="hints">
+                  <li [class.valid-hint]="!blogForm.get('author')?.hasError('invalidCharCount')" [class.invalid-hint]="blogForm.get('author')?.hasError('invalidCharCount') && blogForm.get('author')?.touched">მინიმუმ 4 სიმბოლო</li>
+                  <li [class.valid-hint]="!blogForm.get('author')?.hasError('invalidWordCount') && blogForm.get('author')?.getRawValue().length >= 5" [class.invalid-hint]="blogForm.get('author')?.hasError('invalidWordCount') && blogForm.get('author')?.touched">მინიმუმ ორი სიტყვა</li>
+                  <li [class.valid-hint]="!blogForm.get('author')?.hasError('pattern') && blogForm.get('author')?.getRawValue().length >= 1" [class.invalid-hint]="blogForm.get('author')?.hasError('pattern') && blogForm.get('author')?.touched">მხოლოდ ქართული სიმბოლოები</li>
+                </ul>
+              </div>
+             <div class="input-wrapper">
+               <label>სათური *</label>
+               <input formControlName="title" placeholder="შეიყვნეთ სათაური" type="text" class="primary-input">
+               <ul class="hints">
+                 <li [class.valid-hint]="!blogForm.get('title')?.hasError('invalidCharCount')" [class.invalid-hint]="blogForm.get('title')?.hasError('invalidCharCount') && blogForm.get('title')?.touched">მინიმუმ 2 სიმბოლო</li>
+               </ul>
+             </div>
+           </div>
+           <div class="description">
+             <div class="input-wrapper">
+                <label>აღწერა *</label>
+                <textarea formControlName="description" class="primary-input"></textarea>
+                <ul class="hints">
+                  <li [class.valid-hint]="!blogForm.get('description')?.hasError('invalidCharCount')" [class.invalid-hint]="blogForm.get('description')?.hasError('invalidCharCount') && blogForm.get('description')?.touched">მინიმუმ 2 სიმბოლო</li>
+                </ul>
+             </div>
+           </div>
+          <div class="multiple-input calendar">
+            <div class="input-wrapper">
+              <label>გამოქვეყნების თარიღი *</label>
+              <input formControlName="publish_date" placeholder="შეიყვნეთ გამოქვეყნების თარიღი" type="text" class="primary-input">
+            </div>
+            <div class="input-wrapper">
+              <label>კატეგორია</label>
+              <ng-select
+                [searchable]="false"
+                [items]="categories"
+                bindValue="id"
+                bindLabel="name"
+                [multiple]="true"
+                formControlName="categories"
+                placeholder="შეიყვანეთ კატეგორია"
+                ><ng-template ng-label-tmp let-item="item" let-clear="clear">
+                  <button [style.background-color]="item.background_color" class="ng-value-label select-button">
+                    <h4 [style.color]="item.text_color">{{item.title}}</h4>
+                    <img width="20" height="20" (click)="clear(item)" src="/assets/icons/close-white.svg" alt="">
+                  </button>
+                </ng-template>
+
+                <ng-template ng-option-tmp let-item="item">
+                 <button class="select-button" [style.background-color]="item.background_color">
+                   <h4 [style.color]="item.text_color">{{item.title}}</h4>
+                 </button>
+                </ng-template>
+              </ng-select>            </div>
+          </div>
+          <div class="multiple-input email-wrapper">
+            <div class="input-wrapper">
+              <label>ელ-ფოსტა</label>
+              <input formControlName="email" placeholder="შეიყვნეთ ელ-ფოსტა" type="text" class="primary-input">
+              <div class="email-error" *ngIf="blogForm.get('email')?.hasError('pattern') && blogForm.get('email')?.touched">
+                <img src="/assets/icons/error.svg" alt="">
+                <p>
+                  მეილი უნდა მთავრდებოდეს &#64;redberry.ge-ით
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="submit">
+        <button (click)="addNewBlog()" class="primary-button">გამოქვეყნება</button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { AppComponent } from "./app.component";
 import { SharedModule } from "./shared/shared.module";
 import {RouterModule, Routes} from "@angular/router";
+import {BrowserModule} from "@angular/platform-browser";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -18,9 +20,10 @@ const routes: Routes = [{
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    CommonModule,
+    BrowserModule,
     SharedModule,
     RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
   ],
   bootstrap: [AppComponent]
 })

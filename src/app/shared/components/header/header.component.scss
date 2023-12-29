@@ -6,23 +6,85 @@
     max-width: 1200px;
     margin: 0 auto;
     height: 100%;
+    .only-logo{
+      justify-content: center !important;
+      .primary-button{
+        display: none;
+      }
+    }
     .header-items{
       display: flex;
       height: 100%;
       align-items: center;
       justify-content: space-between;
-      .sign-in-button{
-        background-color: #5D37F3;
-        cursor: pointer;
-        color: #FFFFFF;
-        padding: 10px 20px;
-        display: inline-flex;
-        border-radius: 8px;
-        font-size: 14px;
-        justify-content: center;
-        align-items: center;
-        font-weight: 400;
+    }
+  }
+}
+
+.auth{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+   padding: 20px 20px 40px 20px;
+  .header-close-button{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    img{
+      cursor: pointer;
+    }
+  }
+  .login{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    h4{
+      font-size: 24px;
+      font-weight: 700;
+      color: #1A1A1F;
+    }
+  }
+  .success{
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+  }
+  .success-message{
+    padding-top: 16px;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+  }
+  .auth-form{
+    display: flex;
+    flex-direction: column;
+    padding-top: 24px;
+    label{
+      color: #1A1A1F;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    input{
+      margin-top: 8px;
+    }
+    .email-error{
+      padding-top: 8px;
+      display: flex;
+      align-items: center;
+      p{
+        color: #EA1919;
+        font-size: 12px;
+        padding-left: 8px;
       }
     }
   }
+  .submit{
+    margin-top: 24px;
+  }
+  .success-button{
+    margin-top: 48px;
+  }
+  input.invalid{}
 }

@@ -1,10 +1,45 @@
 <header class="header">
   <div class="header-items-container">
-    <div class="header-items">
+    <div class="header-items" [class.only-logo]="showOnlyLogo">
       <img src="/assets/images/logo.svg" alt="">
-      <button class="sign-in-button">
+      <button class="primary-button" (click)="openDialog(auth)" *ngIf="!isLoggedIn">
         შესვლა
+      </button>
+      <button routerLink="/blogs/blog-add" class="primary-button" *ngIf="isLoggedIn">
+        დაამატე ბლოგი
       </button>
     </div>
   </div>
 </header>
+<ng-template #auth>
+  <div class="auth">
+    <div class="header-close-button">
+      <img src="/assets/icons/close.svg" mat-dialog-close alt="">
+    </div>
+    <ng-container *ngIf="!isLoggedIn">
+      <div class="login">
+        <h3>
+          შესვლა
+        </h3>
+      </div>
+      <form class="auth-form" [formGroup]="authForm">
+        <label>ელ-ფოსტა</label>
+        <input formControlName="email" placeholder="example@redberry.ge" type="email" class="primary-input">
+        <div class="email-error" *ngIf="showEmailError">
+          <img src="/assets/icons/error.svg" alt="">
+          <p>
+            ელ-ფოსტა არ მოიძებნა
+          </p>
+        </div>
+      </form>
+      <button (click)="submitForm()" class="primary-button submit">შესვლა</button>
+    </ng-container>
+    <ng-container *ngIf="isLoggedIn">
+      <div class="success">
+        <img src="/assets/icons/success.svg" alt="">
+      </div>
+      <h4 class="success-message">წარმატებული ავტორიზაცია</h4>
+      <button class="primary-button success-button" mat-dialog-close>კარგი</button>
+    </ng-container>
+  </div>
+</ng-template>
