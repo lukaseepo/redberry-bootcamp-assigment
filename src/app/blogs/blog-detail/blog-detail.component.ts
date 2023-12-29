@@ -40,7 +40,6 @@ export class BlogDetailComponent implements OnInit {
   public getBlogs() {
     this.blogService.getBlogs().subscribe((allBlogs) => {
       this.blogs = this.groupBlogsByCategory(allBlogs.data);
-      console.log(this.blogs);
     });
   }
 
@@ -52,13 +51,11 @@ export class BlogDetailComponent implements OnInit {
       currentGroup.push(blog);
 
       if (currentGroup.length === 3) {
-        // Reached the maximum limit, start a new group
         groupedBlogs.push([...currentGroup]);
         currentGroup = [];
       }
     });
 
-    // Add the remaining blogs if any
     if (currentGroup.length > 0) {
       groupedBlogs.push([...currentGroup]);
     }
