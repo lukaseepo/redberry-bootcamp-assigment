@@ -29,23 +29,23 @@
                 <label>ავტორი *</label>
                 <input formControlName="author" placeholder="შეიყვნეთ ავტორი" type="text" class="primary-input">
                 <ul class="hints">
-                  <li [class.valid-hint]="!blogForm.get('author')?.hasError('invalidCharCount')" [class.invalid-hint]="blogForm.get('author')?.hasError('invalidCharCount') && blogForm.get('author')?.touched">მინიმუმ 4 სიმბოლო</li>
-                  <li [class.valid-hint]="!blogForm.get('author')?.hasError('invalidWordCount') && blogForm.get('author')?.getRawValue().length >= 5" [class.invalid-hint]="blogForm.get('author')?.hasError('invalidWordCount') && blogForm.get('author')?.touched">მინიმუმ ორი სიტყვა</li>
-                  <li [class.valid-hint]="!blogForm.get('author')?.hasError('pattern') && blogForm.get('author')?.getRawValue().length >= 1" [class.invalid-hint]="blogForm.get('author')?.hasError('pattern') || blogForm.get('author')?.touched && blogForm.get('author')?.invalid">მხოლოდ ქართული სიმბოლოები</li>
+                  <li [class.valid-hint]="!blogForm.get('author')?.hasError('minLengthError')" [class.invalid-hint]="blogForm.get('author')?.hasError('minLengthError') && blogForm.get('author')?.touched">მინიმუმ 4 სიმბოლო</li>
+                  <li [class.valid-hint]="!blogForm.get('author')?.hasError('invalidWordCount') && blogForm.get('author')?.getRawValue()?.length >= 5" [class.invalid-hint]="blogForm.get('author')?.hasError('invalidWordCount') && blogForm.get('author')?.touched">მინიმუმ ორი სიტყვა</li>
+                  <li [class.valid-hint]="!blogForm.get('author')?.hasError('pattern') && blogForm.get('author')?.getRawValue()?.length >= 1" [class.invalid-hint]="blogForm.get('author')?.hasError('pattern') || blogForm.get('author')?.touched && blogForm.get('author')?.invalid">მხოლოდ ქართული სიმბოლოები</li>
                 </ul>
               </div>
              <div class="input-wrapper">
                <label>სათური *</label>
                <input formControlName="title" placeholder="შეიყვნეთ სათაური" type="text" class="primary-input">
                <ul class="hints">
-                 <li [class.valid-hint]="!blogForm.get('title')?.hasError('invalidCharCount')" [class.invalid-hint]="blogForm.get('title')?.hasError('invalidCharCount') && blogForm.get('title')?.touched">მინიმუმ 2 სიმბოლო</li>
+                 <li [class.valid-hint]="!blogForm.get('title')?.hasError('minLengthError')" [class.invalid-hint]="blogForm.get('title')?.hasError('minLengthError') && blogForm.get('title')?.touched">მინიმუმ 2 სიმბოლო</li>
                </ul>
              </div>
            </div>
            <div class="description">
              <div class="input-wrapper">
                 <label>აღწერა *</label>
-                <quill-editor [modules]="modules" formControlName="description" ondragover="false"></quill-editor>
+                <quill-editor [modules]="modules" placeholder="შეიყვნანეთ აღწერა" formControlName="description" ondragover="false"></quill-editor>
                 <ul class="hints">
                   <li [class.valid-hint]="blogForm.get('description')?.valid" [class.invalid-hint]="blogForm.get('description')?.invalid && blogForm.get('description')?.touched">მინიმუმ 2 სიმბოლო</li>
                 </ul>

@@ -1,7 +1,7 @@
 <header class="header">
   <div class="header-items-container">
     <div class="header-items" [class.only-logo]="showOnlyLogo">
-      <img src="/assets/images/logo.svg" alt="">
+      <img routerLink="/" src="/assets/images/logo.svg" alt="">
       <button class="primary-button" (click)="openDialog(auth)" *ngIf="!isLoggedIn">
         შესვლა
       </button>

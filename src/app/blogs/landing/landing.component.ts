@@ -30,17 +30,14 @@ export class LandingComponent implements OnInit{
    public getBlogs() {
      this.blogService.getBlogs().subscribe((res) => {
        this.blogs = res.data;
-
-       // Filter out blogs with publishDate greater than current date
        const currentDate = new Date();
        this.blogs = this.blogs.filter(blog => {
          const blogDate = new Date(Date.parse(blog.publish_date));
 
-         // Ensure that blogDate is a valid date
          if (!isNaN(blogDate.getTime())) {
            return blogDate <= currentDate;
          } else {
-           return false; // Exclude blogs with invalid date format
+           return false;
          }
        });
        this.allBlogs = this.blogs;
@@ -55,7 +52,6 @@ export class LandingComponent implements OnInit{
     } else {
       this.selectedCategories?.splice(index, 1);
       if (this.selectedCategories.length === 0) {
-        // If no selected categories left, reset blogs to show all
         this.blogs = this.allBlogs;
         return;
       }

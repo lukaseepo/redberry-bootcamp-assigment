@@ -13,6 +13,7 @@ import {Blog} from "../../shared/interfaces/blog";
 export class BlogDetailComponent implements OnInit {
   public blog!: Blog;
   public blogs: Blog[][] = [];
+  public blogsLoading = false;
   public currentIndex = 0;
   constructor(private blogService: BlogsService, private activatedRoute: ActivatedRoute, private router: Router) {}
 
@@ -38,7 +39,27 @@ export class BlogDetailComponent implements OnInit {
   }
 
   public getBlogs() {
+    this.blogsLoading = true;
     this.blogService.getBlogs().subscribe((allBlogs) => {
+      this.blogsLoading = false;
+      allBlogs.data = allBlogs.data.filter(blog => {
+        const blogDate = new Date(Date.parse(blog.publish_date));
+        const currentDate = new Date();
+        if (!isNaN(blogDate.getTime())) {
+          return blogDate <= currentDate && blog.id !== this.blog.id;
+        } else {
+          return false;
+        }
+      })
+
+      allBlogs.data = allBlogs.data.filter(blog =>
+        blog.categories.some(blogCategory =>
+          this.blog.categories.some(selectedCategory =>
+            selectedCategory.id === blogCategory.id
+          )
+        )
+      );
+
       this.blogs = this.groupBlogsByCategory(allBlogs.data);
     });
   }
