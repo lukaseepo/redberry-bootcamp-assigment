@@ -220,3 +220,38 @@
     }
   }
 }
+
+.blog-add-success{
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 40px 20px;
+  width: 100%;
+  .header-close-button{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    img{
+      cursor: pointer;
+    }
+  }
+  .success{
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    align-items: center;
+    img{
+      width: 64px;
+      height: 64px;
+    }
+    h3{
+      color: #1A1A1F;
+      font-size: 20px;
+      font-weight: 700;
+      padding-top: 20px;
+      text-align: center;
+    }
+  }
+  .primary-button{
+    margin-top: 48px;
+  }
+}

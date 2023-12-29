@@ -56,9 +56,31 @@ input.ng-invalid.ng-touched{
   background: #FAF2F3;
 }
 
-textarea.ng-invalid.ng-dirty{
+input.ng-valid.ng-touched{
+  border: 1px solid #14D81C;
+  background: #F8FFF8;
+}
+
+.ql-editor:focus{
+  border: 1.5px solid #5D37F3;
+  background: #F7F7FF;
+}
+
+
+quill-editor.ng-dirty.ng-invalid .ql-editor{
   border: 1px solid #EA1919 !important;
   background: #FAF2F3;
+}
+
+
+quill-editor.ng-invalid.ng-touched .ql-editor{
+  border: 1px solid #EA1919 !important;
+  background: #FAF2F3;
+}
+
+quill-editor.ng-valid.ng-touched .ql-editor{
+  border: 1px solid #14D81C;
+  background: #F8FFF8;
 }
 
 .invalid-hint{
@@ -69,15 +91,17 @@ textarea.ng-invalid.ng-dirty{
   color: #14D81C !important;
 }
 
-textarea.ng-invalid.ng-touched{
-  border: 1px solid #EA1919 !important;
-  background: #FAF2F3;
-}
-
 ng-select.ng-touched.ng-dirty.ng-invalid{
   .ng-select-container{
     border: 1px solid #EA1919 !important;
     background: #FAF2F3;
+  }
+}
+
+ng-select.ng-touched.ng-dirty.ng-valid{
+  .ng-select-container{
+    border: 1px solid #14D81C;
+    background: #F8FFF8;
   }
 }
 
@@ -98,4 +122,27 @@ ng-select.ng-dirty.ng-invalid{
 .mat-mdc-dialog-container{
   border-radius: 12px;
   overflow: hidden;
+}
+
+.ql-editor{
+  width: 100%;
+  height: 124px;
+  padding-left: 16px;
+  padding-top: 12px;
+  overflow-y: auto;
+  border-radius: 12px;
+  border: 1px solid #E4E3EB;
+  margin-top: 8px;
+}
+
+.ql-tooltip{
+  display: none;
+}
+
+.ql-toolbar{
+  display: none;
+}
+
+.ql-clipboard{
+  display: none;
 }

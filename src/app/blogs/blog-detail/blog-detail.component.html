@@ -1,0 +1,23 @@
+<app-header></app-header>
+<section class="blog-detail-section">
+  <div class="blog-detail-container">
+    <div class="blog-detail-items" *ngIf="blog">
+       <div class="blog-img-container">
+         <img src="{{blog.image}}" alt="">
+       </div>
+      <div class="author-info">
+        <h3>{{blog.author}}</h3>
+        <h4>{{blog.publish_date}} • {{blog.email}}</h4>
+      </div>
+      <h3 class="title">{{blog.title}}</h3>
+      <div class="blog-categories">
+        <button class="category-button" *ngFor="let category of blog.categories" [style.background-color]="category.background_color + '4D'">
+          <h4 [style.color]="category.background_color">{{category.title}}</h4>
+        </button>
+      </div>
+      <div class="description">
+        <p [innerHTML]="blog.description"></p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -34,20 +34,31 @@
       .category-button{
         padding: 8px 16px;
         border-radius: 30px;
+        cursor: pointer;
         font-size: 12px;
         width: max-content;
         white-space: nowrap;
         font-weight: 500;
+        border: 1px solid transparent;
+      }
+      .clicked{
+        border: 1px solid #000;
       }
     }
     .blogs{
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       grid-column-gap: 30px;
+      grid-row-gap: 20px;
       padding-bottom: 20px;
       .blog{
         display: flex;
         flex-direction: column;
+        width: 100%;
+        .img-container{
+          border-radius: 12px;
+          overflow: hidden;
+        }
         img{
           width: 100%;
           height: 328px;

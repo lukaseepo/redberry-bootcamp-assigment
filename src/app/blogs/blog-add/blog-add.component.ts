@@ -1,26 +1,27 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {SharedModule} from "../../shared/shared.module";
-import {Form, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {BlogsService} from "../blogs.service";
 import {Category} from "../../shared/interfaces/category";
 import {Router} from "@angular/router";
+import {MatDialog, MatDialogClose} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-blog-add',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, MatDialogClose],
   templateUrl: './blog-add.component.html',
   styleUrl: './blog-add.component.scss'
 })
 export class BlogAddComponent implements OnInit{
-  public imageToUpload = localStorage.getItem('image') ? localStorage.getItem('image') : '';
-  public imageUploaded = !!localStorage.getItem('image');
+  public imageToUpload = '';
+  public imageUploaded = false;
   public imageName = '';
   public categories!: Category[];
   public savedData = localStorage.getItem('savedData') ? JSON.parse(localStorage.getItem('savedData') ?? '') : '';
   public blogForm: FormGroup = this.fb.group({
     title: [this.savedData.title ? this.savedData.title : '', [Validators.required, this.countCharsValidator(2)]],
-    description: [this.savedData.description ? this.savedData.description : '', [Validators.required, this.countCharsValidator(2)]],
+    description: [this.savedData.description ? this.savedData.description : '', [Validators.required, this.minLengthValidator(2)]],
     author: [this.savedData.author ? this.savedData.author : '', [Validators.required, this.countCharsValidator(4), this.georgianTwoWordsValidator, Validators.pattern(/^[\u10A0-\u10FF\s]+$/)]],
     publish_date: [this.savedData.publish_date ? this.savedData.publish_date : '', [Validators.required, Validators.pattern(/^(0[1-9]|[12][0-9]|3[01])[-./](0[1-9]|1[0-2])[-./]\d{4}$/)]],
     categories: [this.savedData.categories ? this.savedData.categories : '', [Validators.required]],
@@ -51,6 +52,30 @@ export class BlogAddComponent implements OnInit{
     };
   }
 
+  public minLengthValidator(minLength: number) {
+    return (control: FormControl) => {
+      const value = control.value;
+      const strippedValue = value ? value.replace(/<[^>]*>|[\s&;nbsp;]/g, '') : '';
+      console.log(strippedValue);
+      if (strippedValue.length < minLength) {
+        return {minLengthError: true};
+      }
+      return null;
+    }
+  };
+
+  public modules = {
+    clipboard: {
+      matchVisual: false,
+      allowed: {
+        tags: ['a', 'b', 'strong', 'p', 'br'],
+        attributes: ['href', 'rel', 'target', 'class'],
+      },
+      substituteBlockElements: true,
+      magicPasteLinks: true,
+    },
+  };
+
 
   public ngOnInit() {
     this.blogForm.valueChanges.subscribe((v) => {
@@ -60,10 +85,13 @@ export class BlogAddComponent implements OnInit{
     this.getCategories();
   }
 
-  constructor(private fb: FormBuilder, private blogService: BlogsService, private router: Router) {
+  constructor(private fb: FormBuilder, private blogService: BlogsService, private router: Router, private dialog: MatDialog) {
   }
 
   public handleFileInput(event:any) {
+    if(+(event.target.files[0].size / (1024*1024)).toFixed(2) > 1){
+      return;
+    }
     this.imageToUpload = event.target.files[0];
     this.imageName = event.target.files[0].name;
     this.imageUploaded = true;
@@ -75,22 +103,30 @@ export class BlogAddComponent implements OnInit{
     })
   }
 
-  public addNewBlog(): void {
+  public addNewBlog(dialog: TemplateRef<void>): void {
     if(this.blogForm.invalid){
       this.blogForm.markAllAsTouched();
+      if(this.imageToUpload === ''){
+
+      }
       return;
     }
     const formData = new FormData();
-    const savedValue = this.blogForm.get('categories')?.value;
-    this.blogForm.get('categories')?.setValue(JSON.stringify(this.blogForm.get('categories')?.value))
+    let categoriesToSend = JSON.stringify(this.blogForm.get('categories')?.value);
     for (const controlName of Object.keys(this.blogForm.controls)) {
       if(controlName === 'image') continue;
       formData.append(controlName, this.blogForm.get(controlName)?.value);
     }
-    this.blogForm.get('categories')?.setValue(savedValue);
     formData.append('image', this.imageToUpload as string);
+    formData.append('categories', categoriesToSend);
     this.blogService.addNewBlog(formData).subscribe(() => {
-      this.router.navigate(['/']);
+      this.dialog.open(dialog, {
+        width: '480px'
+      })
+      localStorage.removeItem('savedData');
+      this.imageToUpload = '';
+      this.blogForm.reset();
+      this.imageUploaded = false;
     });
   }
 }

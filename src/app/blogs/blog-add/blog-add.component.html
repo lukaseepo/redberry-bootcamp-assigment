@@ -7,7 +7,7 @@
         <div class="image-upload">
           <label class="upload-title">ატვირთეთ ფოტო</label>
           <ng-container *ngIf="!imageUploaded">
-            <input (change)="handleFileInput($event)" class="file-upload-input" type="file" id="fileInput" />
+            <input accept="image/*" (change)="handleFileInput($event)" class="file-upload-input" type="file" id="fileInput" />
             <div class="upload-file">
               <img src="/assets/icons/upload.svg" alt="">
               <h4>ჩააგდეთ ფაილი აქ ან <span>აირჩიეთ ფაილი</span></h4>
@@ -31,7 +31,7 @@
                 <ul class="hints">
                   <li [class.valid-hint]="!blogForm.get('author')?.hasError('invalidCharCount')" [class.invalid-hint]="blogForm.get('author')?.hasError('invalidCharCount') && blogForm.get('author')?.touched">მინიმუმ 4 სიმბოლო</li>
                   <li [class.valid-hint]="!blogForm.get('author')?.hasError('invalidWordCount') && blogForm.get('author')?.getRawValue().length >= 5" [class.invalid-hint]="blogForm.get('author')?.hasError('invalidWordCount') && blogForm.get('author')?.touched">მინიმუმ ორი სიტყვა</li>
-                  <li [class.valid-hint]="!blogForm.get('author')?.hasError('pattern') && blogForm.get('author')?.getRawValue().length >= 1" [class.invalid-hint]="blogForm.get('author')?.hasError('pattern') && blogForm.get('author')?.touched">მხოლოდ ქართული სიმბოლოები</li>
+                  <li [class.valid-hint]="!blogForm.get('author')?.hasError('pattern') && blogForm.get('author')?.getRawValue().length >= 1" [class.invalid-hint]="blogForm.get('author')?.hasError('pattern') || blogForm.get('author')?.touched && blogForm.get('author')?.invalid">მხოლოდ ქართული სიმბოლოები</li>
                 </ul>
               </div>
              <div class="input-wrapper">
@@ -45,9 +45,9 @@
            <div class="description">
              <div class="input-wrapper">
                 <label>აღწერა *</label>
-                <textarea formControlName="description" class="primary-input"></textarea>
+                <quill-editor [modules]="modules" formControlName="description" ondragover="false"></quill-editor>
                 <ul class="hints">
-                  <li [class.valid-hint]="!blogForm.get('description')?.hasError('invalidCharCount')" [class.invalid-hint]="blogForm.get('description')?.hasError('invalidCharCount') && blogForm.get('description')?.touched">მინიმუმ 2 სიმბოლო</li>
+                  <li [class.valid-hint]="blogForm.get('description')?.valid" [class.invalid-hint]="blogForm.get('description')?.invalid && blogForm.get('description')?.touched">მინიმუმ 2 სიმბოლო</li>
                 </ul>
              </div>
            </div>
@@ -95,8 +95,21 @@
         </div>
       </form>
       <div class="submit">
-        <button (click)="addNewBlog()" class="primary-button">გამოქვეყნება</button>
+        <button (click)="addNewBlog(blogAddSuccess)" class="primary-button">გამოქვეყნება</button>
       </div>
     </div>
   </div>
 </section>
+
+<ng-template #blogAddSuccess>
+  <div class="blog-add-success">
+    <div class="header-close-button">
+      <img src="/assets/icons/close.svg" mat-dialog-close alt="">
+    </div>
+    <div class="success">
+      <img src="/assets/icons/success.svg" alt="">
+      <h3>ჩანაწი წარმატებით დაემატა</h3>
+    </div>
+    <button class="primary-button" mat-dialog-close routerLink="/">მთავარ გვერდზე დაბრუნება</button>
+  </div>
+</ng-template>
