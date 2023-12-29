@@ -30,7 +30,7 @@
             <h4 [style.color]="category.background_color">{{category.title}}</h4>
           </button>
         </div>
-        <p class="content" [innerHTML]="blog.description.length >= 30 ? blog.description.slice(0, 30) + '...' : blog.description" >
+        <p class="content" [innerHTML]="blog.description.length >= 100 ? blog.description.slice(0, 100) + '...' : blog.description" >
         </p>
         <a routerLink="blog-detail/{{blog.id}}">სრულად ნახვა <img src="/assets/icons/arrow.svg" alt=""></a>
       </div>
