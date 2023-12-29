@@ -24,7 +24,7 @@
     <div class="title">
       <h3 *ngIf="!blogsLoading && blogs.length">მსგავსი სტატიები</h3>
       <h3 *ngIf="!blogsLoading && !blogs.length">მსგავსი სტატიები ვერ მოიძებნა</h3>
-      <div class="arrows" *ngIf="blogs.length">
+      <div class="arrows" *ngIf="blogs.length > 1">
         <div class="arrow" (click)="previousSlide()" [class.disabled]="currentIndex === 0">
           <img src="/assets/icons/arrow-left.svg" alt="">
         </div>
