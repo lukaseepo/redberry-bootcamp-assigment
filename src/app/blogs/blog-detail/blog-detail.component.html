@@ -20,4 +20,37 @@
       </div>
     </div>
   </div>
+  <div class="similiar-blogs">
+    <div class="title">
+      <h3>მსგავსი სტატიები</h3>
+      <div class="arrows">
+        <div class="arrow" (click)="previousSlide()" [class.disabled]="currentIndex === 0">
+          <img src="/assets/icons/arrow-left.svg" alt="">
+        </div>
+        <div class="arrow"  (click)="nextSlide()" [class.disabled]="currentIndex === blogs.length - 1">
+          <img src="/assets/icons/arrow-right.svg" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="blogs">
+      <div class="blog" *ngFor="let blog of blogs[currentIndex]">
+        <div class="img-container">
+          <img src="{{blog.image}}" alt="">
+        </div>
+        <p class="author">{{blog.author}}</p>
+        <p class="date">{{blog.publish_date}}</p>
+        <h4 class="title">
+          {{ blog.title }}
+        </h4>
+        <div class="categories">
+          <button class="category-button" *ngFor="let category of blog.categories" [style.background-color]="category.background_color + '4D'">
+            <h4 [style.color]="category.background_color">{{category.title}}</h4>
+          </button>
+        </div>
+        <p class="content" [innerHTML]="blog.description.length >= 30 ? blog.description.slice(0, 30) + '...' : blog.description" >
+        </p>
+        <a (click)="navigateToBlogDetail(blog.id)">სრულად ნახვა <img src="/assets/icons/arrow.svg" alt=""></a>
+      </div>
+    </div>
+  </div>
 </section>

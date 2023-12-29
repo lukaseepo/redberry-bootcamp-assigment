@@ -1,30 +1,74 @@
 import {Component, OnInit} from '@angular/core';
 import {SharedModule} from "../../shared/shared.module";
 import {BlogsService} from "../blogs.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Blog} from "../../shared/interfaces/blog";
-
 @Component({
   selector: 'app-blog-detail',
   standalone: true,
-  imports: [
-    SharedModule
-  ],
+  imports: [SharedModule],
   templateUrl: './blog-detail.component.html',
-  styleUrl: './blog-detail.component.scss'
+  styleUrls: ['./blog-detail.component.scss'],
 })
-export class BlogDetailComponent implements OnInit{
+export class BlogDetailComponent implements OnInit {
   public blog!: Blog;
-  constructor(private blogService: BlogsService, private activatedRoute: ActivatedRoute) {
-  }
+  public blogs: Blog[][] = [];
+  public currentIndex = 0;
+  constructor(private blogService: BlogsService, private activatedRoute: ActivatedRoute, private router: Router) {}
+
   public ngOnInit() {
-   this.getBlogById();
+    this.getBlogById();
+    this.getBlogs();
+  }
+
+  public nextSlide(): void {
+    if(this.currentIndex === this.blogs.length - 1) return;
+    this.currentIndex++;
+  }
+
+  public previousSlide():void {
+    if(this.currentIndex === 0) return;
+    this.currentIndex--;
   }
 
   public getBlogById() {
     this.blogService.getBlogById(this.activatedRoute.snapshot.params['id']).subscribe((res) => {
       this.blog = res;
-    })
+    });
+  }
+
+  public getBlogs() {
+    this.blogService.getBlogs().subscribe((allBlogs) => {
+      this.blogs = this.groupBlogsByCategory(allBlogs.data);
+      console.log(this.blogs);
+    });
+  }
+
+  private groupBlogsByCategory(blogs: any[]): any[][] {
+    const groupedBlogs = [];
+    let currentGroup: any[] = [];
+
+    blogs.forEach(blog => {
+      currentGroup.push(blog);
+
+      if (currentGroup.length === 3) {
+        // Reached the maximum limit, start a new group
+        groupedBlogs.push([...currentGroup]);
+        currentGroup = [];
+      }
+    });
+
+    // Add the remaining blogs if any
+    if (currentGroup.length > 0) {
+      groupedBlogs.push([...currentGroup]);
+    }
+
+    return groupedBlogs;
+  }
+
+  public navigateToBlogDetail(id: number): void {
+    this.router.navigate([`/blogs/blog-detail/${id}`]).then(() => this.getBlogById());
+    window.scroll(0,0);
   }
 
 }
