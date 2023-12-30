@@ -42,6 +42,7 @@ export class BlogDetailComponent implements OnInit {
     this.blogsLoading = true;
     this.blogService.getBlogs().subscribe((allBlogs) => {
       this.blogsLoading = false;
+      this.currentIndex = 0;
       allBlogs.data = allBlogs.data.filter(blog => {
         const blogDate = new Date(Date.parse(blog.publish_date));
         const currentDate = new Date();
