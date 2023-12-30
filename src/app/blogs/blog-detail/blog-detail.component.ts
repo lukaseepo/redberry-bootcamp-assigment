@@ -18,7 +18,7 @@ export class BlogDetailComponent implements OnInit {
   constructor(private blogService: BlogsService, private activatedRoute: ActivatedRoute, private router: Router) {}
 
   public ngOnInit() {
-    this.getBlogById();
+    this.getBlogById()
   }
 
   public nextSlide(): void {
@@ -32,9 +32,9 @@ export class BlogDetailComponent implements OnInit {
   }
 
   public getBlogById() {
+    this.getBlogs();
     this.blogService.getBlogById(this.activatedRoute.snapshot.params['id']).subscribe((res) => {
       this.blog = res;
-      this.getBlogs();
     });
   }
 
