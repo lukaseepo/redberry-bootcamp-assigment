@@ -148,6 +148,9 @@
         column-gap: 16px;
         align-items: flex-start;
         padding-top: 24px;
+        word-break: break-word;
+        flex-wrap: wrap;
+        row-gap: 10px;
         .category-button{
           padding: 6px 10px;
           border-radius: 30px;
