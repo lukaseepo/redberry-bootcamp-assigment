@@ -35,6 +35,7 @@ export class BlogDetailComponent implements OnInit {
   public getBlogById() {
     this.blogService.getBlogById(this.activatedRoute.snapshot.params['id']).subscribe((res) => {
       this.blog = res;
+      this.getBlogs();
     });
   }
 
