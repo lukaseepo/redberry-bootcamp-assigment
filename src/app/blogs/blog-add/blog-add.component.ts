@@ -14,9 +14,9 @@ import {MatDialog, MatDialogClose} from "@angular/material/dialog";
   styleUrl: './blog-add.component.scss'
 })
 export class BlogAddComponent implements OnInit{
-  public imageToUpload = '';
-  public imageUploaded = false;
-  public imageName = '';
+  public imageToUpload!: string | File;
+  public imageUploaded = !!localStorage.getItem('image');
+  public imageName = localStorage.getItem('imageName') ? localStorage.getItem('imageName') : '';
   public categories!: Category[];
   public savedData = localStorage.getItem('savedData') ? JSON.parse(localStorage.getItem('savedData') ?? '') : '';
   public blogForm: FormGroup = this.fb.group({
@@ -64,6 +64,12 @@ export class BlogAddComponent implements OnInit{
 
 
   public ngOnInit() {
+    const imageData = localStorage.getItem('image');
+
+    if (imageData) {
+      this.imageToUpload = this.dataURLtoFile(imageData,  this.imageName as string);
+      this.imageUploaded = true;
+    }
     this.blogForm.valueChanges.subscribe((v) => {
 
       localStorage.setItem('savedData', JSON.stringify(v));
@@ -75,12 +81,37 @@ export class BlogAddComponent implements OnInit{
   }
 
   public handleFileInput(event:any) {
-    if(+(event.target.files[0].size / (1024*1024)).toFixed(2) > 1){
+    if (+(event.target.files[0].size / (1024 * 1024)).toFixed(2) > 1) {
       return;
     }
-    this.imageToUpload = event.target.files[0];
-    this.imageName = event.target.files[0].name;
-    this.imageUploaded = true;
+
+    const imageFile = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const dataURL = e.target?.result as string;
+      localStorage.setItem('image', dataURL);
+      localStorage.setItem('imageName', event.target.files[0].name);
+      this.imageToUpload = imageFile;
+      this.imageName = imageFile.name;
+      this.imageUploaded = true;
+    };
+
+    reader.readAsDataURL(imageFile);
+  }
+
+  public dataURLtoFile(dataURL: string, filename: string): File {
+    const arr = dataURL.split(',');
+    const mime = arr[0].match(/:(.*?);/)![1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, { type: mime });
   }
 
   public getCategories() {
@@ -104,6 +135,8 @@ export class BlogAddComponent implements OnInit{
     formData.append('categories', categoriesToSend);
     this.blogService.addNewBlog(formData).subscribe(() => {
       localStorage.removeItem('savedData');
+      localStorage.removeItem('image');
+      localStorage.removeItem('imageName');
       this.imageToUpload = '';
       this.blogForm.reset();
       this.imageUploaded = false;
