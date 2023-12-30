@@ -32,6 +32,11 @@
   font-weight: 400;
 }
 
+.ng-dropdown-panel-items div{
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .primary-input{
   border-radius: 12px;
   border: 1px solid #E4E3EB;
