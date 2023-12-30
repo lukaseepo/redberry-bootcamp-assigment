@@ -19,7 +19,6 @@ export class BlogDetailComponent implements OnInit {
 
   public ngOnInit() {
     this.getBlogById();
-    this.getBlogs();
   }
 
   public nextSlide(): void {
